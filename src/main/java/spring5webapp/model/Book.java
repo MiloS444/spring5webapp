@@ -1,14 +1,13 @@
-package model;
+package spring5webapp.model;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
-@NoArgsConstructor
-@RequiredArgsConstructor
-@Setter
-@Getter
+@Setter @Getter
+@Entity
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,8 +16,17 @@ public class Book {
     private String isbn;
 
     @ManyToMany
-    @JoinTable(name = "author_book", joinColumns = @JoinColumn("book_id"), inverseJoinColumns = @JoinColumn("author_id"))
-    private Set<Author> author;
+    @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private Set<Author> authors = new HashSet<>();
+
+    public Book() {
+    }
+
+    public Book(String title, String isbn) {
+        this.title = title;
+        this.isbn = isbn;
+    }
 
     @Override
     public String toString() {
@@ -26,7 +34,7 @@ public class Book {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
-                ", author=" + author +
+                ", author=" + authors +
                 '}';
     }
 

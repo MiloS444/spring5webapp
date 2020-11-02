@@ -1,11 +1,10 @@
-package model;
+package spring5webapp.model;
 
+import java.util.HashSet;
 import java.util.Set;
 import lombok.*;
 import javax.persistence.*;
 
-@NoArgsConstructor
-@RequiredArgsConstructor
 @Setter
 @Getter
 @Entity
@@ -18,15 +17,22 @@ public class Author
 	private String firstName;
 	private String lastName;
 	@ManyToMany(mappedBy = "authors")
-	private Set<Book> bookSet;
+	private Set<Book> books = new HashSet<>();
 
+	public Author() {
+	}
+
+	public Author(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 	@Override
 	public String toString() {
 		return "Author{" +
 				"id=" + id +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
-				", bookSet=" + bookSet +
+				", bookSet=" + books +
 				'}';
 	}
 
