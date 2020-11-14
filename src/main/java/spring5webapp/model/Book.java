@@ -6,7 +6,8 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Setter @Getter
+@Setter
+@Getter
 @Entity
 public class Book {
     @Id
